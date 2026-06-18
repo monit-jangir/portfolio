@@ -8,11 +8,11 @@ export function Presentation() {
   // Personal information
   const profile = {
     name: 'Monit Kumar Jangir',
-    age: 'AI & Data Science Enthusiast',
+    age: 'AI Engineer & Product Builder',
     location: 'Jaipur, India',
     description:
-      "Hey 👋\nI'm Monit, a developer passionate about building intelligent systems that solve real-world problems. I thrive on turning raw data into meaningful stories and creating AI-powered experiences.",
-    src: '/monit-profile .jpg', // Make sure this image is in your /public folder
+      "Hey 👋\nI'm Monit, an AI Engineer and product builder who ships end-to-end automation and LLM-powered systems. I specialize in designing RAG pipelines, workflow automation, and campaign engines, owning the full delivery cycle from architecture to outcomes.",
+    src: '/monit-profile.jpg', // Make sure this image is in your /public folder
     fallbackSrc:
       'https://images.unsplash.com/photo-1610216705422-caa3fcb6d158?q=80&w=3560&auto=format&fit=crop&ixlib.rb-4.0.3',
   };

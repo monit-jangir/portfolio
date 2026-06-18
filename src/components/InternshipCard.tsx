@@ -23,7 +23,7 @@ const InternshipCard = () => {
           {/* Avatar placeholder - Remember to add your photo to the /public folder */}
           <div className="bg-muted h-16 w-16 overflow-hidden rounded-full shadow-md">
             <img
-              src="/monit-profile .jpg" // Change this filename to your actual photo
+              src="/monit-profile.jpg" // Change this filename to your actual photo
               alt="Monit's avatar"
               className="h-full w-full object-cover"
             />
@@ -33,7 +33,7 @@ const InternshipCard = () => {
               Monit Kumar Jangir
             </h2>
             <p className="text-muted-foreground text-sm">
-              AI & Data Science Enthusiast
+              AI Engineer & Product Builder
             </p>
           </div>
         </div>
@@ -78,15 +78,15 @@ const InternshipCard = () => {
             <p className="text-foreground text-sm font-medium">Tech stack</p>
             <div className="text-muted-foreground grid grid-cols-1 gap-y-1 text-sm sm:grid-cols-2">
               <ul className="decoration-none list-disc pl-4">
-                <li>Python, Power BI, SQL</li>
-                <li>OpenAI API, LangChain</li>
-                <li>Agentic AI, Gen AI</li>
+                <li>Python, HTML, CSS, MySQL</li>
+                <li>OpenAI API, Claude, LLMs</li>
+                <li>Agentic AI, RAG Pipelines</li>
                 <li>Prompt Engineering</li>
               </ul>
               <ul className="list-disc pl-4">
-                <li>Streamlit, Gradio</li>
-                <li>MySQL, MongoDB</li>
-                <li>Web Scraping, n8n</li>
+                <li>n8n, Google/Microsoft Ads API</li>
+                <li>Streamlit, Git/GitHub</li>
+                <li>Power BI, Excel, Power Platform</li>
                 <li>
                   <a
                     href="/chat?query=What%20are%20your%20skills%3F"
@@ -107,7 +107,7 @@ const InternshipCard = () => {
           What I bring
         </p>
         <p className="text-foreground text-sm">
-          Proven experience from my internship at DMRC, developing real-time dashboards and security monitoring systems. I excel at transforming complex data into actionable insights and building practical, data-driven solutions.
+          End-to-end AI engineering and product automation experience. I have built high-speed landing page templating engines and ad automation pipelines at Collegedunia (reducing campaign setup times by 70%-80%), engineered RAG pipelines for 300K+ legal documents at Lawxygen AI, and designed log analytics tools at DMRC.
         </p>
       </div>
 
@@ -115,7 +115,7 @@ const InternshipCard = () => {
       <div className="mt-8">
         <p className="text-foreground mb-2 text-lg font-semibold">Goal</p>
         <p className="text-foreground text-sm">
-          To join a forward-thinking team that's building impactful AI-powered tools. I am eager to contribute, learn rapidly, and help solve challenging problems. I'm flexible, dedicated. 🔥
+          To design and ship robust, scalable AI systems, workflows, and automated platforms that drive efficiency and make an impact. Let's connect for collaborations or opportunities! 🚀
         </p>
       </div>
 

@@ -5,6 +5,31 @@ import { Separator } from '@/components/ui/separator';
 // I've replaced all the old project data with your projects from your resume.
 const PROJECT_CONTENT = [
   {
+    title: 'AI-Native Conversational Portfolio',
+    description:
+      'Reimagines the traditional portfolio as an AI-powered conversational experience. Instead of scrolling through a static page, visitors can converse with an AI persona of Monit. The chatbot uses a custom system prompt and can dynamically invoke rich React components (such as project carousels, skills badges, and contact forms) inline.',
+    techStack: [
+      'Next.js',
+      'TypeScript',
+      'Mistral AI',
+      'Vercel AI SDK',
+      'Tailwind CSS',
+      'Framer Motion',
+    ],
+    links: [
+      {
+        name: 'GitHub Repository',
+        url: 'https://github.com/monit-jangir/portfolio.git'
+      },
+    ],
+    images: [
+      {
+        src: '/avatar-landing.png',
+        alt: 'AI-Native Conversational Portfolio interface',
+      },
+    ],
+  },
+  {
     title: 'Resume Optimizer Agent',
     description:
       'A smart, AI-powered resume optimizer built with Streamlit and the Mistral LLM API. It allows users to upload a resume and paste a job description to get instant feedback, a tailored resume, interview prep questions, and more.',
@@ -161,6 +186,12 @@ const ProjectContent = ({ project }: { project: ProjectProps }) => {
 
 // This is the data that feeds the carousel cards. I've updated it to include all three of your projects.
 export const data = [
+  {
+    category: 'AI Project',
+    title: 'AI-Native Conversational Portfolio',
+    src: '/avatar-landing.png',
+    content: <ProjectContent project={{ title: 'AI-Native Conversational Portfolio' }} />,
+  },
   {
     category: 'AI Agent',
     title: 'Resume Optimizer Agent',

@@ -3,17 +3,16 @@ import { z } from 'zod';
 
 export const getInternship = tool({
   description:
-    "Gives a summary of what kind of internship I'm looking for, plus my contact info and how to reach me. Use this tool when the user asks about my internship search or how to contact me for opportunities.",
+    "Gives a summary of my current professional status, experience, and contact details. Use this tool when the user asks about my work, current job, experience, what I'm looking for, or how to contact me for opportunities/collaborations.",
   parameters: z.object({}),
   execute: async () => {
-    return `Here’s what I’m looking for 👇
+    return `Here’s my current status and what I do 👇
 
-- 📅 **Availability**: Open to immediate opportunities
-- 🌍 **Location**: Preferably **Jaipur** or anywhere in **India**
-- 🧑‍💻 **Focus**: Data Science, AI/ML, and Agentic AI projects
-- 🛠️ **Stack**: Python, LangChain, Streamlit, Power BI, LLMs
-- ✅ **What I bring**: A builder's mindset focused on AI and modern tech. I love creating intelligent, automated solutions and have the practical skills to bring innovative ideas to life.
-- 🔥 I move fast, learn faster for big challenges
+- 💼 **Current Role**: Trainee – Product at **Collegedunia** (Gurugram, India)
+- 🛠️ **Stack & Skills**: Python, AI Agents, Workflow Automation (N8N), RAG Pipelines, Power Platform, Power BI, SQL
+- 🧑‍💻 **Focus**: AI engineering, product-led automation, Google/Microsoft Ads automation, LLM integrations
+- ✅ **What I bring**: Full-lifecycle product delivery and automation experience. Slashed landing page creation time by 80% and automated campaign setup at Collegedunia. Designed robust RAG pipelines for 300K+ legal PDFs at Lawxygen AI.
+- 🚀 **Open to**: Collaboration on AI products, open-source projects, and networking with other builders.
 
 📬 **Contact me** via:
 - Email: monit.j@outlook.com

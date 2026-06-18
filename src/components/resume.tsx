@@ -8,11 +8,11 @@ export function Resume() {
   // Resume details
   const resumeDetails = {
     title: "Monit's Resume",
-    description: 'Data Science & AI Enthusiast',
+    description: 'AI Engineer & Product Builder',
     fileType: 'PDF',
-    lastUpdated: 'August 2024',
-    fileSize: '0.3 MB', // Feel free to update this
-    downloadUrl: '/Monit Resume-3.pdf',
+    lastUpdated: 'February 2026',
+    fileSize: '0.1 MB', // Feel free to update this
+    downloadUrl: '/monit-resume.pdf',
   };
 
   const handleDownload = () => {
