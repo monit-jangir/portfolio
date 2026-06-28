@@ -148,7 +148,7 @@ export default function Home() {
         variants={bottomElementVariants}
         initial="hidden"
         animate="visible"
-        className="z-10 mt-4 flex w-full flex-col items-center justify-center md:px-0"
+        className="z-10 -mt-4 sm:-mt-12 flex w-full flex-col items-center justify-center md:px-0"
       >
         {/* free-form question */}
         <form
