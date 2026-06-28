@@ -63,10 +63,10 @@ const Avatar = dynamic<AvatarProps>(
 
       return (
         <div
-          className={`flex items-center justify-center rounded-full overflow-hidden bg-white border border-neutral-200 dark:border-neutral-800 transition-all duration-300 ${hasActiveTool ? 'h-20 w-20' : 'h-28 w-28'}`}
+          className={`flex items-center justify-center rounded-full transition-all duration-300 ${hasActiveTool ? 'h-20 w-20' : 'h-28 w-28'}`}
         >
           <div
-            className="relative h-full w-full cursor-pointer"
+            className="relative cursor-pointer"
             onClick={() => (window.location.href = '/')}
           >
             {isIOS() ? (
@@ -79,6 +79,7 @@ const Avatar = dynamic<AvatarProps>(
               <video
                 ref={videoRef}
                 className="h-full w-full scale-[1.8] object-contain"
+                style={{ filter: 'url(#remove-white)' }}
                 muted
                 playsInline
                 loop
@@ -380,6 +381,19 @@ const Chat = () => {
           @Monit-Jangir
         </a>
       </div>
+
+      {/* SVG Filter to remove white background from the video */}
+      <svg className="absolute h-0 w-0" aria-hidden="true" focusable="false">
+        <filter id="remove-white">
+          <feColorMatrix
+            type="matrix"
+            values="1 0 0 0 0
+                    0 1 0 0 0
+                    0 0 1 0 0
+                    -3 -3 -3 8 -1"
+          />
+        </filter>
+      </svg>
     </div>
   );
 };
