@@ -256,7 +256,7 @@ export const Card = ({
       <motion.button
         layoutId={layout ? `card-${card.title}` : undefined}
         onClick={handleOpen}
-        className="relative z-10 flex h-80 w-56 flex-col items-start justify-end overflow-hidden rounded-3xl p-8 text-white group"
+        className="relative z-10 flex h-80 w-56 flex-col items-start justify-end overflow-hidden rounded-3xl px-5 py-8 text-white group"
       >
         {/* THE ONLY CHANGE IS HERE: A better gradient and a hover effect */}
         <div className="absolute inset-0 z-20 bg-gradient-to-t from-black/90 via-black/60 to-transparent transition-colors duration-300 group-hover:from-black/80" />
