@@ -71,7 +71,7 @@ const Avatar = dynamic<AvatarProps>(
           >
             {isIOS() ? (
               <img
-                src="/landing-memojis.png"
+                src="/landing-memojis-v2.png"
                 alt="iOS avatar"
                 className="h-full w-full scale-[1.8] object-contain"
               />
