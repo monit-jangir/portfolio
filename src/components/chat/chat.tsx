@@ -63,10 +63,10 @@ const Avatar = dynamic<AvatarProps>(
 
       return (
         <div
-          className={`flex items-center justify-center rounded-full transition-all duration-300 ${hasActiveTool ? 'h-20 w-20' : 'h-28 w-28'}`}
+          className={`flex items-center justify-center rounded-full overflow-hidden bg-white border border-neutral-200 dark:border-neutral-800 transition-all duration-300 ${hasActiveTool ? 'h-20 w-20' : 'h-28 w-28'}`}
         >
           <div
-            className="relative cursor-pointer"
+            className="relative h-full w-full cursor-pointer"
             onClick={() => (window.location.href = '/')}
           >
             {isIOS() ? (
