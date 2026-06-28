@@ -24,7 +24,7 @@ const PROJECT_CONTENT = [
     ],
     images: [
       {
-        src: '/avatar-landing.png',
+        src: '/ai-portfolio-thumbnail.png',
         alt: 'AI-Native Conversational Portfolio interface',
       },
     ],
@@ -189,7 +189,7 @@ export const data = [
   {
     category: 'AI Project',
     title: 'AI-Native Conversational Portfolio',
-    src: '/avatar-landing.png',
+    src: '/ai-portfolio-thumbnail.png',
     content: <ProjectContent project={{ title: 'AI-Native Conversational Portfolio' }} />,
   },
   {
