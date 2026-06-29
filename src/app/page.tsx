@@ -11,6 +11,7 @@ import {
   Download,
   Laugh,
   Layers,
+  Mic,
   PartyPopper,
   UserRoundSearch,
 } from 'lucide-react';
@@ -18,6 +19,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { ThemeToggle } from '@/components/ui/ThemeToggle'; // Import the theme toggle
+import { toast } from 'sonner';
 
 /* ---------- quick-question data ---------- */
 const questions = {
@@ -41,9 +43,61 @@ export default function Home() {
   const [input, setInput] = useState('');
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
+  const [isListening, setIsListening] = useState(false);
+  const recognitionRef = useRef<any>(null);
 
   const goToChat = (query: string) =>
     router.push(`/chat?query=${encodeURIComponent(query)}`);
+
+  // Initialize Speech Recognition (Speech-to-Text)
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const SpeechRecognition =
+        (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+      if (SpeechRecognition) {
+        const rec = new SpeechRecognition();
+        rec.continuous = false;
+        rec.interimResults = false;
+        rec.lang = 'en-US';
+
+        rec.onstart = () => {
+          setIsListening(true);
+        };
+
+        rec.onresult = (event: any) => {
+          const transcript = event.results[0][0].transcript;
+          if (transcript) {
+            setInput(transcript);
+            goToChat(transcript);
+          }
+        };
+
+        rec.onerror = (e: any) => {
+          console.error('Speech recognition error', e);
+          setIsListening(false);
+        };
+
+        rec.onend = () => {
+          setIsListening(false);
+        };
+
+        recognitionRef.current = rec;
+      }
+    }
+  }, []);
+
+  const toggleListening = () => {
+    if (!recognitionRef.current) {
+      toast.error('Speech recognition is not supported in this browser. Try Chrome or Safari!');
+      return;
+    }
+
+    if (isListening) {
+      recognitionRef.current.stop();
+    } else {
+      recognitionRef.current.start();
+    }
+  };
 
   /* hero animations (corrected with Variants type) */
   const topElementVariants: Variants = { // FIX: Added Variants type
@@ -176,11 +230,25 @@ export default function Home() {
               placeholder="Ask me anything…"
               className="w-full border-none bg-transparent text-base text-neutral-800 placeholder:text-neutral-500 focus:outline-none dark:text-neutral-200 dark:placeholder:text-neutral-500"
             />
+            {/* Microphone Button */}
+            <button
+              type="button"
+              onClick={toggleListening}
+              className={`mr-1.5 flex h-10 w-10 items-center justify-center rounded-full transition-colors cursor-pointer ${
+                isListening
+                  ? "bg-red-500 text-white animate-pulse"
+                  : "text-neutral-500 hover:bg-neutral-200/50 hover:text-neutral-700 dark:text-neutral-400 dark:hover:bg-neutral-700/50 dark:hover:text-neutral-200"
+              }`}
+              title={isListening ? "Stop listening" : "Start voice dictation"}
+            >
+              <Mic className="h-5 w-5" />
+            </button>
+
             <button
               type="submit"
               disabled={!input.trim()}
               aria-label="Submit question"
-              className="flex items-center justify-center rounded-full bg-[#0171E3] p-2.5 text-white transition-colors hover:bg-blue-600 disabled:opacity-70 dark:bg-blue-600 dark:hover:bg-blue-700"
+              className="flex items-center justify-center rounded-full bg-[#0171E3] p-2.5 text-white transition-colors hover:bg-blue-600 disabled:opacity-70 dark:bg-blue-600 dark:hover:bg-blue-700 cursor-pointer"
             >
               <ArrowRight  className="h-5 w-5" />
             </button>
