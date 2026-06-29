@@ -3,7 +3,7 @@
 
 import { ChatRequestOptions } from 'ai';
 import { motion } from 'framer-motion';
-import { ArrowRight, ArrowUp } from 'lucide-react';
+import { ArrowRight, ArrowUp, Mic, Volume2, VolumeX } from 'lucide-react';
 import React, { useEffect } from 'react';
 
 
@@ -17,6 +17,10 @@ interface ChatBottombarProps {
   stop: () => void;
   input: string;
   isToolInProgress: boolean;
+  isListening?: boolean;
+  toggleListening?: () => void;
+  isVoiceEnabled?: boolean;
+  setIsVoiceEnabled?: (val: boolean) => void;
 }
 
 export default function ChatBottombar({
@@ -26,6 +30,10 @@ export default function ChatBottombar({
   isLoading,
   stop,
   isToolInProgress,
+  isListening = false,
+  toggleListening,
+  isVoiceEnabled = false,
+  setIsVoiceEnabled,
 }: ChatBottombarProps) {
   const inputRef = React.useRef<HTMLInputElement>(null);
 
@@ -68,10 +76,38 @@ export default function ChatBottombar({
             disabled={isToolInProgress || isLoading}
           />
 
+          {/* Voice toggle (Mute/Unmute TTS) */}
+          <button
+            type="button"
+            onClick={() => setIsVoiceEnabled?.(!isVoiceEnabled)}
+            className="mr-1.5 flex h-9 w-9 items-center justify-center rounded-full text-neutral-500 hover:bg-neutral-300/40 hover:text-neutral-700 dark:text-neutral-400 dark:hover:bg-neutral-700/40 dark:hover:text-neutral-200 transition-colors cursor-pointer"
+            title={isVoiceEnabled ? "Mute AI voice output" : "Unmute AI voice output"}
+          >
+            {isVoiceEnabled ? (
+              <Volume2 className="h-5 w-5 text-[#0171E3]" />
+            ) : (
+              <VolumeX className="h-5 w-5" />
+            )}
+          </button>
+
+          {/* Microphone toggle (STT) */}
+          <button
+            type="button"
+            onClick={toggleListening}
+            className={`mr-2 flex h-9 w-9 items-center justify-center rounded-full transition-all cursor-pointer ${
+              isListening
+                ? "bg-red-500 text-white animate-pulse"
+                : "text-neutral-500 hover:bg-neutral-300/40 hover:text-neutral-700 dark:text-neutral-400 dark:hover:bg-neutral-700/40 dark:hover:text-neutral-200"
+            }`}
+            title={isListening ? "Stop listening" : "Start voice dictation"}
+          >
+            <Mic className="h-5 w-5" />
+          </button>
+
           <button
             type="submit"
             disabled={isLoading || !input.trim() || isToolInProgress}
-            className="flex items-center justify-center rounded-full bg-[#0171E3] p-2 text-white disabled:opacity-50"
+            className="flex items-center justify-center rounded-full bg-[#0171E3] p-2 text-white disabled:opacity-50 cursor-pointer"
             onClick={(e) => {
               if (isLoading) {
                 e.preventDefault();

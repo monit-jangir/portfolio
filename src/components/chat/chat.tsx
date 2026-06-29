@@ -111,6 +111,11 @@ const Chat = () => {
   const [autoSubmitted, setAutoSubmitted] = useState(false);
   const [loadingSubmit, setLoadingSubmit] = useState(false);
   const [isTalking, setIsTalking] = useState(false);
+  const [isListening, setIsListening] = useState(false);
+  const [isVoiceEnabled, setIsVoiceEnabled] = useState(false);
+  const recognitionRef = useRef<any>(null);
+
+
 
   const {
     messages,
@@ -136,11 +141,14 @@ const Chat = () => {
         }
       }
     },
-    onFinish: () => {
+    onFinish: (message) => {
       setLoadingSubmit(false);
       setIsTalking(false);
       if (videoRef.current) {
         videoRef.current.pause();
+      }
+      if (isVoiceEnabled) {
+        speak(message.content);
       }
     },
     onError: (error) => {
@@ -157,6 +165,125 @@ const Chat = () => {
       console.log('Tool call:', toolName);
     },
   });
+
+  // Initialize Speech Recognition (Speech-to-Text)
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const SpeechRecognition =
+        (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+      if (SpeechRecognition) {
+        const rec = new SpeechRecognition();
+        rec.continuous = false;
+        rec.interimResults = false;
+        rec.lang = 'en-US';
+
+        rec.onstart = () => {
+          setIsListening(true);
+        };
+
+        rec.onresult = (event: any) => {
+          const transcript = event.results[0][0].transcript;
+          if (transcript) {
+            setInput(transcript);
+          }
+        };
+
+        rec.onerror = (e: any) => {
+          console.error('Speech recognition error', e);
+          setIsListening(false);
+        };
+
+        rec.onend = () => {
+          setIsListening(false);
+        };
+
+        recognitionRef.current = rec;
+      }
+    }
+  }, [setInput]);
+
+  // Clean up speech synthesis on unmount
+  useEffect(() => {
+    return () => {
+      if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+    };
+  }, []);
+
+  const speak = (text: string) => {
+    if (typeof window === 'undefined' || !('speechSynthesis' in window)) return;
+
+    // Cancel current speaking
+    window.speechSynthesis.cancel();
+
+    // Clean text of markdown characters to read naturally
+    const cleanText = text
+      .replace(/\*\*?/g, '')
+      .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+      .replace(/#+\s/g, '')
+      .replace(/```[\s\S]*?```/g, '[code block]')
+      .trim();
+
+    if (!cleanText) return;
+
+    const utterance = new SpeechSynthesisUtterance(cleanText);
+
+    // Try to find a male English voice
+    const voices = window.speechSynthesis.getVoices();
+    const voice =
+      voices.find(
+        (v) =>
+          v.lang.startsWith('en') &&
+          (v.name.toLowerCase().includes('google') ||
+            v.name.toLowerCase().includes('natural') ||
+            v.name.toLowerCase().includes('david') ||
+            v.name.toLowerCase().includes('male'))
+      ) || voices.find((v) => v.lang.startsWith('en'));
+
+    if (voice) {
+      utterance.voice = voice;
+    }
+
+    utterance.onstart = () => {
+      setIsTalking(true);
+      if (videoRef.current) {
+        videoRef.current.play().catch((e) => console.log('Video play error:', e));
+      }
+    };
+
+    utterance.onend = () => {
+      setIsTalking(false);
+      if (videoRef.current) {
+        videoRef.current.pause();
+      }
+    };
+
+    utterance.onerror = () => {
+      setIsTalking(false);
+      if (videoRef.current) {
+        videoRef.current.pause();
+      }
+    };
+
+    window.speechSynthesis.speak(utterance);
+  };
+
+  const toggleListening = () => {
+    if (!recognitionRef.current) {
+      toast.error('Speech recognition is not supported in this browser. Try Chrome or Safari!');
+      return;
+    }
+
+    if (isListening) {
+      recognitionRef.current.stop();
+    } else {
+      if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+      recognitionRef.current.start();
+    }
+  };
 
   const { currentAIMessage, latestUserMessage, hasActiveTool } = useMemo(() => {
     const latestAIMessageIndex = messages.findLastIndex(
@@ -203,6 +330,9 @@ const Chat = () => {
   //@ts-ignore
   const submitQuery = (query) => {
     if (!query.trim() || isToolInProgress) return;
+    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+    }
     setLoadingSubmit(true);
     append({
       role: 'user',
@@ -241,6 +371,9 @@ const Chat = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     if (!input.trim() || isToolInProgress) return;
+    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+    }
     submitQuery(input);
     setInput('');
   };
@@ -251,6 +384,9 @@ const Chat = () => {
     setIsTalking(false);
     if (videoRef.current) {
       videoRef.current.pause();
+    }
+    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
     }
   };
 
@@ -368,6 +504,10 @@ const Chat = () => {
               isLoading={isLoading}
               stop={handleStop}
               isToolInProgress={isToolInProgress}
+              isListening={isListening}
+              toggleListening={toggleListening}
+              isVoiceEnabled={isVoiceEnabled}
+              setIsVoiceEnabled={setIsVoiceEnabled}
             />
           </div>
         </div>
