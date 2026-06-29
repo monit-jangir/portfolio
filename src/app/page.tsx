@@ -135,10 +135,10 @@ export default function Home() {
       {/* big blurred footer word */}
       <div className="pointer-events-none absolute inset-x-0 bottom-0 flex justify-center overflow-hidden">
         <div
-          className="hidden bg-gradient-to-b from-neutral-500/10 to-neutral-500/0 bg-clip-text text-[10rem] leading-none font-black text-transparent select-none sm:block lg:text-[16rem]"
+          className="hidden bg-gradient-to-b from-neutral-500/10 to-neutral-500/0 bg-clip-text text-[5rem] sm:text-[7rem] md:text-[9rem] lg:text-[11rem] xl:text-[13rem] leading-none font-black text-transparent select-none sm:block"
           style={{ marginBottom: '-2.5rem' }}
         >
-          MONIT
+          Monit Jangir
         </div>
       </div>
 
