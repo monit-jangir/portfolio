@@ -164,14 +164,14 @@ export default function Home() {
       <div className="absolute top-6 left-6 z-20">
         <button
           onClick={() => goToChat('Tell me about your experience and how we can collaborate.')}
-          className="relative flex cursor-pointer items-center gap-2 rounded-full border bg-white/30 px-4 py-1.5 text-sm font-medium text-black shadow-md backdrop-blur-lg transition hover:bg-white/60 dark:border-white dark:text-white dark:hover:bg-neutral-800"
+          className="relative flex cursor-pointer items-center gap-2 rounded-full border bg-white/30 p-2.5 md:px-4 md:py-1.5 text-sm font-medium text-black shadow-md backdrop-blur-lg transition hover:bg-white/60 dark:border-white dark:text-white dark:hover:bg-neutral-800"
         >
           {/* Green pulse dot */}
           <span className="relative flex h-2 w-2">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></span>
             <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500"></span>
           </span>
-          Looking for a talent?
+          <span className="hidden md:inline">Looking for a talent?</span>
         </button>
       </div>
 
