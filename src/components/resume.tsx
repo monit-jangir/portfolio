@@ -10,8 +10,8 @@ export function Resume() {
     title: "Monit's Resume",
     description: 'AI Engineer & Product Builder',
     fileType: 'PDF',
-    lastUpdated: 'February 2026',
-    fileSize: '0.1 MB', // Feel free to update this
+    lastUpdated: 'June 2026',
+    fileSize: '0.15 MB',
     downloadUrl: '/monit-resume.pdf',
   };
 

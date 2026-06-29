@@ -8,6 +8,7 @@ import { motion, Variants } from 'framer-motion'; // FIX: Imported Variants
 import {
   ArrowRight,
   BriefcaseBusiness,
+  Download,
   Laugh,
   Layers,
   PartyPopper,
@@ -90,6 +91,14 @@ export default function Home() {
       {/* GitHub button */}
       <div className="absolute top-6 right-8 z-20 flex items-center gap-2">
         <ThemeToggle />
+        <a
+          href="/monit-resume.pdf"
+          download="Monit_Kumar_Jangir_Resume.pdf"
+          className="flex cursor-pointer items-center gap-1.5 rounded-full border bg-white/30 px-3.5 py-1.5 text-xs font-medium text-black shadow-md backdrop-blur-lg transition hover:bg-white/60 dark:border-white dark:text-white dark:hover:bg-neutral-800"
+        >
+          <Download className="h-3.5 w-3.5" />
+          <span className="hidden sm:inline">Resume</span>
+        </a>
         <GithubButton
           animationDuration={1.5}
           label="Star"
